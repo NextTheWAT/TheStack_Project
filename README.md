@@ -50,6 +50,39 @@ TheStack은 단순한 규칙을 기반으로 반복 플레이가 가능한
 ![Animation2 (1)](https://github.com/user-attachments/assets/83f3075f-da35-40ab-a239-827ad67b7d64)
 
 
+## 🛠 트러블슈팅 (문제 해결 기록)
+
+### 1. ❌ 블록이 화면에 보이지 않음
+
+- **문제**: 블록 프리팹이 생성되었는데 화면에 표시되지 않음  
+- **원인**: SpriteRenderer 미설정, 또는 Z값이 카메라 앞쪽(Z > 0)  
+- **해결**: SpriteRenderer 추가 및 `transform.position.z = 0` 으로 고정
+
+---
+
+### 2. ❌ 게임 오버 후 재시작이 되지 않음
+
+- **문제**: 게임 오버 후 UI는 바뀌지만, 실제 게임이 리셋되지 않음  
+- **원인**: Scene 재시작 로직이 없음  
+- **해결**: `SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);` 사용
+
+---
+
+### 3. ❌ 블록이 쌓이지 않고 아래로 떨어짐
+
+- **문제**: 블록이 다른 블록 위에 안 멈추고 관통함  
+- **원인**: BoxCollider2D 누락 또는 `isTrigger` 설정됨  
+- **해결**: Collider 추가 및 `isTrigger = false` 확인
+
+---
+
+### 4. ❌ UI가 비활성화되어 아무것도 보이지 않음
+
+- **문제**: 처음 시작했을 때 Home UI가 안 보임  
+- **원인**: `UIManager.ChangeState(UIState.Home)` 누락  
+- **해결**: `Awake()` 또는 `Start()`에서 명확히 상태 전환 호출
+
+
 ## 📂 프로젝트 폴더 구조
 
 ```plaintext
